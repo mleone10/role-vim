@@ -42,4 +42,4 @@
 - name: ensure filetype configs are set
   synchronize:
     src: ftplugin
-    dest: "{{ vim_dir }}/ftplugin"
+    dest: "{{ vim_dir }}"
