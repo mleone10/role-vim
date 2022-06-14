@@ -1,0 +1,81 @@
+" Author: Mario Leone
+
+" Use Pathogen
+execute pathogen#infect()
+
+" Set colorscheme
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+
+" Enable file-specific indenting
+filetype plugin indent on
+
+" Enable syntax
+syntax on
+
+" Show ruler
+set ruler
+
+" Show line numbers
+set relativenumber
+set number
+
+" Show mode at bottom of screen
+set showmode
+
+" Expand tabs to spaces
+set expandtab
+
+" Tabs have this many spaces
+set tabstop=4
+
+" Tabs have this many spaces when editing
+set softtabstop=4
+
+" Set colored column
+set colorcolumn=80
+
+" Highlight current line
+set cursorline
+
+" Make backspace actually work
+set backspace=2
+
+" Enable modelines
+set modeline
+set modelines=5
+
+" Ignore case, expect when capital letters are explicitly used
+set ignorecase
+set smartcase
+
+" Use 'jk' to escape
+inoremap jk <esc>
+
+" \W will remove trailing whitespace
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+" Turn off arrow keys because LEARNING
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+
+" Move up and down by buffer line, not actual line
+nnoremap j gj
+nnoremap k gk
+
+" Navigate splits more easily
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Allow Terraform syntax formatting
+let g:terraform_align=1
+let g:terraform_fmt_on_save=1
+
+" Disable Markdown folding
+let g:vim_markdown_folding_disabled=1

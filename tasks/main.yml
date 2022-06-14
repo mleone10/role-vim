@@ -1,0 +1,45 @@
+---
+- name: ensure plugin directories exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: no
+    mode: 0750
+  loop:
+    - "{{ vim_dir }}"
+    - "{{ vim_dir }}/autoload"
+    - "{{ vim_dir }}/bundle"
+
+- name: ensure pathogen is installed
+  get_url:
+    dest: "{{ vim_dir }}/autoload/pathogen.vim"
+    url: https://tpo.pe/pathogen.vim
+
+- name: install plugins
+  git:
+    dest: "{{ vim_dir }}/bundle/{{ item.name }}"
+    repo: "{{ item.url }}"
+    clone: yes
+    update: yes
+    recursive: no
+  loop:
+    - name: vim-go
+      url: https://github.com/fatih/vim-go
+    - name: vim-polyglot
+      url: https://github.com/sheerun/vim-polyglot
+    - name: vim-terraform
+      url: https://github.com/hashivim/vim-terraform
+    - name: base16-vim
+      url: https://github.com/chriskempson/base16-vim
+
+- name: ensure .vimrc is in place
+  copy:
+    src: vimrc
+    dest: "{{ vimrc }}"
+    backup: yes
+    mode: 0640
+
+- name: ensure filetype configs are set
+  synchronize:
+    src: ftplugin
+    dest: "{{ vim_dir }}/ftplugin"
